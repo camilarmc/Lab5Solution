@@ -253,6 +253,26 @@ public class Dictionary {
 		Collections.sort(WordsPermut, Word.CompWord);
 		return WordsPermut;
 	}
+	
+	public ArrayList<Word> GenerateWords(String strLetters, WordFilter filter) {
+		ArrayList<String> combinWords = new ArrayList<String>();
+		for (int b = 1; b < strLetters.length() + 1; b++) {
+			Iterator<int[]> iterCommon = CombinatoricsUtils.combinationsIterator(strLetters.length(), b);
+			while (iterCommon.hasNext()) {
+				final int[] cmbPlayer = iterCommon.next();
+				String strBuildWord = "";
+				for (int i : cmbPlayer) {
+					strBuildWord += strLetters.charAt(i);
+				}
+				combinWords.add(strBuildWord);
+			}
+		}
+
+		HashSet<Word> hsUniqueWords = new HashSet<Word>(GeneratePossibleWords(combinWords));
+		ArrayList<Word> WordsPermut = new ArrayList<Word>(hsUniqueWords);
+		Collections.sort(WordsPermut, Word.CompWord);
+		return WordsPermut;
+	}
 
 	/**
 	 * GeneratePossibleWords - If you pass in an Array of Strings, it will call

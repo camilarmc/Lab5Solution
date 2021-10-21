@@ -5,6 +5,8 @@ public class WordFilter {
 	private String strStartsWith;
 	private String strEndsWith;
 	private String strContains;
+
+
 	private int iContainsIdx;
 	private int iLength;
 	
@@ -35,6 +37,15 @@ public class WordFilter {
 
 	public void setStrEndsWith(String strEndsWith) {
 		this.strEndsWith = strEndsWith;
+	}
+
+	public String getStrContains() {
+		return strContains;
+	}
+
+
+	public void setStrContains(String strContains) {
+		this.strContains = strContains;
 	}
 
 
