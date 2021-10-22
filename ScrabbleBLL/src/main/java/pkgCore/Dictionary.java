@@ -11,6 +11,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.math3.util.CombinatoricsUtils;
 
@@ -270,8 +272,21 @@ public class Dictionary {
 
 		HashSet<Word> hsUniqueWords = new HashSet<Word>(GeneratePossibleWords(combinWords));
 		ArrayList<Word> WordsPermut = new ArrayList<Word>(hsUniqueWords);
-		Collections.sort(WordsPermut, Word.CompWord);
-		return WordsPermut;
+		
+		
+		List<Word> filteredList = WordsPermut.stream()
+				.filter(word -> (filter.getStrStartWith() !=  null ? word.getWord().startsWith(filter.getStrStartWith()) : true)
+				&& (filter.getStrEndWith() != null ? word.getWord().endsWith(filter.getStrEndWith()) : true) 
+				&& (filter.getiLength() != 0 ? word.getWord().length() == filter.getiLength() : true)
+				&& (filter.getStrContains() != null ? word.getWord().contains(filter.getStrContains()) : true))
+				.collect(Collectors.toList());
+		
+		ArrayList<Word> filteredWordsPermut = new ArrayList<Word>();
+		filteredWordsPermut.addAll(filteredList);
+		
+		
+		Collections.sort(filteredWordsPermut, Word.CompWord);
+		return filteredWordsPermut;
 	}
 
 	/**

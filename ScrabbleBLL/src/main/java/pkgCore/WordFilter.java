@@ -5,10 +5,12 @@ public class WordFilter {
 	private String strStartsWith;
 	private String strEndsWith;
 	private String strContains;
-
-
 	private int iContainsIdx;
 	private int iLength;
+	
+	public WordFilter() {
+		
+	}
 	
 	
 	public WordFilter(String strStartsWith, String strEndsWith, String strContains, int iContainsIdx, int iLength) {
@@ -20,22 +22,22 @@ public class WordFilter {
 	}
 
 
-	public String getStrStartsWith() {
+	public String getStrStartWith() {
 		return strStartsWith;
 	}
 
 
-	public void setStrStartsWith(String strStartsWith) {
+	public void setStrStartWith(String strStartsWith) {
 		this.strStartsWith = strStartsWith;
 	}
 
 
-	public String getStrEndsWith() {
+	public String getStrEndWith() {
 		return strEndsWith;
 	}
 
 
-	public void setStrEndsWith(String strEndsWith) {
+	public void setStrEndWith(String strEndsWith) {
 		this.strEndsWith = strEndsWith;
 	}
 
@@ -67,10 +69,6 @@ public class WordFilter {
 	public void setiLength(int iLength) {
 		this.iLength = iLength;
 	}
-	
-	
-	
-	
 	
 	
 	
