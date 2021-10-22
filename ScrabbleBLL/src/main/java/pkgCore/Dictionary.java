@@ -251,7 +251,12 @@ public class Dictionary {
 		}
 
 		HashSet<Word> hsUniqueWords = new HashSet<Word>(GeneratePossibleWords(combinWords));
-		ArrayList<Word> WordsPermut = new ArrayList<Word>(hsUniqueWords);
+		//Adding the "is it a word filter" here because that's what the test case is looking for. Need to check with 
+		//prof or TA if the test case needs to be changed or if this is legal
+		List<Word> filteredList = hsUniqueWords.stream()
+				.filter(word -> this.findWord(word.getWord()) != null).collect(Collectors.toList());
+		
+		ArrayList<Word> WordsPermut = new ArrayList<Word>(filteredList);
 		Collections.sort(WordsPermut, Word.CompWord);
 		return WordsPermut;
 	}
@@ -278,7 +283,10 @@ public class Dictionary {
 				.filter(word -> (filter.getStrStartWith() !=  null ? word.getWord().startsWith(filter.getStrStartWith()) : true)
 				&& (filter.getStrEndWith() != null ? word.getWord().endsWith(filter.getStrEndWith()) : true) 
 				&& (filter.getiLength() != 0 ? word.getWord().length() == filter.getiLength() : true)
-				&& (filter.getStrContains() != null ? word.getWord().contains(filter.getStrContains()) : true))
+				&& (filter.getStrContains() != null ? word.getWord().contains(filter.getStrContains()) : true)
+				&& ((filter.getiContainsIdx() != 0 && filter.getStrContains()!= null) ? 
+				word.getWord().substring(filter.getiContainsIdx(), word.getWord().length()).contains(filter.getStrContains()): true)
+				&& this.findWord(word.getWord()) != null) //filters out strings that are not words in the dictionary
 				.collect(Collectors.toList());
 		
 		ArrayList<Word> filteredWordsPermut = new ArrayList<Word>();
