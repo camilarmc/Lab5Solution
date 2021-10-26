@@ -262,31 +262,15 @@ public class Dictionary {
 	}
 	
 	public ArrayList<Word> GenerateWords(String strLetters, WordFilter filter) {
-		ArrayList<String> combinWords = new ArrayList<String>();
-		for (int b = 1; b < strLetters.length() + 1; b++) {
-			Iterator<int[]> iterCommon = CombinatoricsUtils.combinationsIterator(strLetters.length(), b);
-			while (iterCommon.hasNext()) {
-				final int[] cmbPlayer = iterCommon.next();
-				String strBuildWord = "";
-				for (int i : cmbPlayer) {
-					strBuildWord += strLetters.charAt(i);
-				}
-				combinWords.add(strBuildWord);
-			}
-		}
-
-		HashSet<Word> hsUniqueWords = new HashSet<Word>(GeneratePossibleWords(combinWords));
-		ArrayList<Word> WordsPermut = new ArrayList<Word>(hsUniqueWords);
+		ArrayList<Word> genWords = this.GenerateWords(strLetters);
 		
-		
-		List<Word> filteredList = WordsPermut.stream()
+		List<Word> filteredList = genWords.stream()
 				.filter(word -> (filter.getStrStartWith() !=  null ? word.getWord().startsWith(filter.getStrStartWith()) : true)
 				&& (filter.getStrEndWith() != null ? word.getWord().endsWith(filter.getStrEndWith()) : true) 
 				&& (filter.getiLength() != 0 ? word.getWord().length() == filter.getiLength() : true)
 				&& (filter.getStrContains() != null ? word.getWord().contains(filter.getStrContains()) : true)
 				&& ((filter.getiContainsIdx() != 0 && filter.getStrContains()!= null) ? 
-				word.getWord().substring(filter.getiContainsIdx(), word.getWord().length()).contains(filter.getStrContains()): true)
-				&& this.findWord(word.getWord()) != null) //filters out strings that are not words in the dictionary
+				word.getWord().substring(filter.getiContainsIdx(), word.getWord().length()).contains(filter.getStrContains()): true))
 				.collect(Collectors.toList());
 		
 		ArrayList<Word> filteredWordsPermut = new ArrayList<Word>();
