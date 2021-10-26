@@ -42,7 +42,7 @@ class DictionaryLab5Test {
 		WordFilter WF = new WordFilter();
 		WF.setStrStartWith("L");
 		WF.setiLength(3);
-
+		
 		ArrayList<Word> words = d.GenerateWords(strLetters, WF);
 
 		StringBuilder sb = new StringBuilder();

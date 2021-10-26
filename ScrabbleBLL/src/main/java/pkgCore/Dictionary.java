@@ -269,7 +269,8 @@ public class Dictionary {
 				&& (filter.getStrEndWith() != null ? word.getWord().endsWith(filter.getStrEndWith()) : true) 
 				&& (filter.getiLength() != 0 ? word.getWord().length() == filter.getiLength() : true)
 				&& (filter.getStrContains() != null ? word.getWord().contains(filter.getStrContains()) : true)
-				&& ((filter.getiContainsIdx() != 0 && filter.getStrContains()!= null) ? 
+				&& ((filter.getiContainsIdx() == -1 && filter.getStrContains() != null) ? word.getWord().contains(filter.getStrContains()): true)
+				&& ((filter.getiContainsIdx() >= 0 && filter.getStrContains()!= null) ? 
 				word.getWord().substring(filter.getiContainsIdx(), word.getWord().length()).contains(filter.getStrContains()): true))
 				.collect(Collectors.toList());
 		
